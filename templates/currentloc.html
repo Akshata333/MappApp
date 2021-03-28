@@ -4,13 +4,12 @@
     <title>Geolocation</title>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     <style type="text/css">
-      /* Always set the map height explicitly to define the size of the div
-       * element that contains the map. */
+      
       #map {
         height: 100%;
       }
 
-      /* Optional: Makes the sample page fill the window. */
+     
       html,
       body {
         height: 100%;
@@ -36,10 +35,7 @@
       }
     </style>
     <script>
-      // Note: This example requires that you consent to location sharing when
-      // prompted by your browser. If you see the error "The Geolocation service
-      // failed.", it means you probably did not give permission for the browser to
-      // locate you.
+     
       let map, infoWindow;
 
       function initMap() {
@@ -73,7 +69,6 @@
               }
             );
           } else {
-            // Browser doesn't support Geolocation
             handleLocationError(false, infoWindow, map.getCenter());
           }
         });
@@ -93,7 +88,6 @@
   <body>
     <div id="map"></div>
 
-    <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
     <script
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDva4m0Xpx3yLGnBHUzzSm2IgTPKuhmMiM&callback=initMap&libraries=&v=weekly"
       async
