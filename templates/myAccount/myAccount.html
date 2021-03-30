@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <link rel="stylesheet" href="{{ url_for('static', filename='accStyle.css') }}">
+        <title>TOASYX - My Account</title>
+    </head>
+    
+    <body>
+        <h1>User</h1>
+        <p><span>{{ g.user['username'] }}</span></p>
+    </body>
+
+</html>

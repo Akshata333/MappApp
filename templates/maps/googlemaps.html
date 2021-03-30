@@ -22,8 +22,10 @@ var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
 </script>
 
 <p>
-<span>{{ g.user['username'] }}</span>
-<a href="{{ url_for('auth.logout') }}">Log Out</a>
+  <span>{{ g.user['username'] }}</span>
+  <a href="{{ url_for('auth.logout') }}">Log Out</a>
+  <br>
+  <a href="{{ url_for('myAccount.account') }}">My Account</a>
 </p>
 
 </body>

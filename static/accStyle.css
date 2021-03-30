@@ -1,0 +1,14 @@
+body {
+    background-color: #1e1e1e;
+}
+
+h1 {
+    color: white;
+    border-bottom: 5px #8c8c8c;
+}
+
+p {
+    color: white;
+    font-family: Verdana;
+    font-size: medium;
+}

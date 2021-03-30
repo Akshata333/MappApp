@@ -10,5 +10,4 @@ bp = Blueprint('maps', __name__)
 @bp.route('/')
 @login_required
 def index():
-    db = get_db()
     return render_template('maps/googlemaps.html')
