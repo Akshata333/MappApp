@@ -4,6 +4,40 @@
     <head>
         <link rel="stylesheet" href="{{ url_for('static', filename='accStyle.css') }}">
         <title>TOASYX - My Account</title>
+        <style>
+        .navbar {
+            overflow: hidden;
+            background-color: #666;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+          }
+    
+          .navbar a {
+            float: left;
+            display: block;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 17px;
+          }
+    
+          .navbar a:hover {
+            background: #f1f1f1;
+            color: black;
+          }
+    
+          .navbar a.active {
+            background-color: #4CAF50;
+            color: white;
+          }
+    
+          .main {
+            padding: 16px;
+            margin-bottom: 30px;
+          }
+        </style>
     </head>
     
     <body>
@@ -12,6 +46,11 @@
         
         <br>
         <p><a href="{{ url_for('myAccount.changePassword') }}">Change password</a></p>
+        <div class="navbar">
+            <a href="{{ url_for('myAccount.account') }}">My Account</a>
+            <a href="{{ url_for('auth.logout') }}">Log Out</a>
+            <a href="{{ url_for('myAccount.changePassword') }}">Change Password</a>
+        </div>
     </body>
 
 </html>
