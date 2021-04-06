@@ -38,3 +38,37 @@ def changePassword():
         flash(error)
 
     return render_template('myAccount/changePassword.html')
+
+@bp.route('/changeUsername', methods=('GET', 'POST'))
+def changeUsername():
+    if request.method == 'POST':
+        password = request.form['password']
+        newuser = request.form['nuser']
+        db = get_db()
+        error = None
+        user = db.execute(
+            'SELECT * FROM user WHERE username = ?', (g.user['username'],)
+        ).fetchone()
+
+        if not check_password_hash(user['password'], password):
+            error = 'Incorrect password.'
+
+        if error is None:
+            sql = '''UPDATE user
+                    SET username = ?
+                    WHERE password = ?'''
+            cur = db.cursor()
+            cur.execute(sql, (newuser, password))
+
+            cur.execute("SELECT * FROM user")
+            rows = cur.fetchall()
+            for i in rows:
+                print(i["username"], i["password"])
+
+            db.commit()
+
+            return redirect(url_for('myAccount.account'))
+
+        flash(error)
+
+    return render_template('myAccount/changeUsername.html')
