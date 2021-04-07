@@ -61,6 +61,56 @@ def login():
 
     return render_template('auth/login.html')
 
+@bp.route('/forgotPassword', methods=('GET', 'POST'))
+def forgotPassword():
+    if request.method == 'POST':
+        username = request.form['username']
+        securityq = request.form['securityq']
+        db = get_db()
+        error = None
+        user = db.execute(
+            'SELECT * FROM user WHERE username = ?', (username,)
+        ).fetchone()
+
+        if user is None:
+            error = 'Incorrect username.'
+        elif (user['security_question'] != securityq):
+            error = 'Incorrect security answer.'
+
+        if error is None:
+            session.clear()
+            session['user_id'] = user['id']
+            return redirect(url_for('myAccount.forgotPasswordVerified'))
+
+        flash(error)
+
+    return render_template('auth/forgotPassword.html')
+
+@bp.route('/forgotUsername', methods=('GET', 'POST'))
+def forgotUsername():
+    if request.method == 'POST':
+        password = request.form['password']
+        securityq = request.form['securityq']
+        db = get_db()
+        error = None
+        user = db.execute(
+            'SELECT * FROM user WHERE security_question = ?', (securityq,)
+        ).fetchone()
+
+        if user is None:
+            error = 'Incorrect security answer.'
+        elif not (check_password_hash(user['password'], password)):
+            error = 'Incorrect password.'
+
+        if error is None:
+            session.clear()
+            session['user_id'] = user['id']
+            return redirect(url_for('myAccount.account'))
+
+        flash(error)
+
+    return render_template('auth/forgotUsername.html')
+
 @bp.before_app_request
 def load_logged_in_user():
     user_id = session.get('user_id')

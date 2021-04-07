@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Forgot Username{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  <form method="post">
+    <label for="password">Password</label>
+    <input type="password" name="password" id="password" required>
+    <label for="securityq">Security Question Answer</label>
+    <input name="securityq" id="securityq" required>
+    <input type="submit" value="Login without username">
+    <p><center><img src="{{ url_for('static', filename='1.png') }}"></center></p>
+  </form>
+{% endblock %}

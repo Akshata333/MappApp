@@ -47,10 +47,12 @@
         <br>
         <p><a href="{{ url_for('myAccount.changePassword') }}">Change password</a></p>
         <div class="navbar">
+            <a href="{{ url_for('index') }}">Home</a>
             <a href="{{ url_for('myAccount.account') }}">My Account</a>
             <a href="{{ url_for('auth.logout') }}">Log Out</a>
             <a href="{{ url_for('myAccount.changePassword') }}">Change Password</a>
             <a href="{{ url_for('myAccount.changeUsername') }}">Change Username</a>
+            <a href="{{ url_for('myAccount.changeSecurityQuestion') }}">Change Security Question</a>
         </div>
     </body>
 

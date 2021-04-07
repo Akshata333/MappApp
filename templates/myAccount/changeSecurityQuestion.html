@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Change Security Question{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  <p>User</p><br>
+  <form method="post">
+    <label for="password">Enter password</label>
+    <input type="password" name="password" id="password" required>
+    <label for="nuser">What was your childhood nickname?</label>
+    <input name="securityq" id="securityq" required>
+    <input type="submit" value="Update">
+    <p><center><img src="{{ url_for('static', filename='1.png') }}"></center></p>
+  </form>
+{% endblock %}

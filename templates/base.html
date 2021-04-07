@@ -10,6 +10,8 @@
     {% else %}
       <li><a href="{{ url_for('auth.register') }}">Register</a>
       <li><a href="{{ url_for('auth.login') }}">Log In</a>
+      <li><a href="{{ url_for('auth.forgotPassword') }}">Forgot Password?</a>
+      <li><a href="{{ url_for('auth.forgotUsername') }}">Forgot Username?</a>
     {% endif %}
   </ul>
 </nav>
