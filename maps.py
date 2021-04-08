@@ -11,3 +11,8 @@ bp = Blueprint('maps', __name__)
 @login_required
 def index():
     return render_template('maps/googlemaps.html')
+
+@bp.route('/aboutus', methods=('GET', 'POST'))
+@login_required
+def aboutus():
+    return render_template('maps/aboutus.html')

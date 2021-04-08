@@ -1,5 +1,8 @@
-import os
+### Credit
+# Thanks to https://flask.palletsprojects.com/en/1.1.x/tutorial/ and the authors
+# for the foundation of some of this code in our project
 
+import os
 from flask import Flask
 
 def create_app(test_config=None):
