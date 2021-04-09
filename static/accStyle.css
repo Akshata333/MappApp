@@ -1,14 +1,78 @@
+* {
+    /*Page initialization Clear the inner and outer margins of the element*/
+    padding: 0;
+	margin: 0;
+}
 body {
-    background-color: #1e1e1e;
+    /* Flexible layout allows page elements to be centered vertically + horizontally */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* Let the page always account for the total height of the browser */
+    height: 100vh;
+    /* Overflow hiding */
+    overflow: hidden;
 }
 
+.box {
+    /* Relative positioning */
+    position: relative;
+    width: 300px;
+    height: 200px;
+    line-height: 200px;
+    text-align: center;
+    color: #fff;
+    border-radius: 5px;
+    /*The mouse pointer becomes a hand*/
+    cursor: pointer;
+    /* Background gradient */
+    background-image: linear-gradient(to right, #fb7299, #ff5c7c);
+    transition: .5s;
+}
+
+.box::after {
+    content: '';
+    /* Absolute positioning */
+    position: absolute;
+    top: 100px;
+    left: 0;
+    width: 600px;
+    height: 70px;
+    /* Background gradient */
+    background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(255, 255, 255, .3), rgba(0, 0, 0, 0));
+    /* Rotate the element -45 degrees. The distance from the left does not change, and the distance from the bottom is 360 pixels. */
+    transform: rotate(-45deg) translate(0, -360px);
+}
+
+.box:hover::after {
+    /* Transition time */
+    transition: 1s;
+    transform: rotate(-45deg) translate(0, 100px);
+}
+
+.box:hover {
+    margin-top: -20px;
+    /* Box shadow */
+    box-shadow: 3px 3px 3px rgba(0, 0, 0, .2);
+}
+/*
 h1 {
-    color: white;
-    border-bottom: 2px solid #666666;
+    position: relative;
+    text-align: center;
+    z-index: 1;
+    /*
+    color: rgb(4, 0, 255);
+    border-bottom: 2px solid #666666;*/
+    /*
 }
-
+h1.pos_left
+{
+	position:relative;
+	left:-80px;
+}
 p {
-    color: white;
+    color: white;/*
     font-family: Verdana;
-    font-size: medium;
-}
+    font-size: medium;*/
+    /*
+}*/
