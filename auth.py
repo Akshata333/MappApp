@@ -96,9 +96,17 @@ def forgotUsername():
         securityq = request.form['securityq']
         db = get_db()
         error = None
-        user = db.execute(
+
+        rows = db.execute(
             'SELECT * FROM user WHERE security_question = ?', (securityq,)
-        ).fetchone()
+        ).fetchall()
+        for i in rows:
+            if (check_password_hash(i['password'], password)):
+                user = i
+
+        #user = db.execute(
+        #    'SELECT * FROM user WHERE security_question = ? AND password = ?', (securityq, generate_password_hash(password))
+        #).fetchone()
 
         if user is None:
             error = 'Incorrect security answer.'
