@@ -46,6 +46,12 @@ def changeUsername():
         newuser = request.form['nuser']
         db = get_db()
         error = None
+
+        if db.execute(
+            'SELECT id FROM user WHERE username = ?', (newuser,)
+        ).fetchone() is not None:
+            error = 'User {} is already registered.'.format(newuser)
+
         user = db.execute(
             'SELECT * FROM user WHERE username = ?', (g.user['username'],)
         ).fetchone()
