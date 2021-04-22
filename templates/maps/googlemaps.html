@@ -53,18 +53,14 @@
 <div id="googleMap" class="full-height" style="width:100%"></div>
 
 <script>
-function myMap() {
-var mapProp= {
-  center:new google.maps.LatLng(44.688998399999996,-73.465856),
-  zoom:5,
-};
-var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
-}
-
-
-
+  function myMap() {
+  var mapProp= {
+    center:new google.maps.LatLng(44.688998399999996,-73.465856),
+    zoom:5,
+  };
+  var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
+  }
 </script>
-<script src="index.js"></script>
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDva4m0Xpx3yLGnBHUzzSm2IgTPKuhmMiM&callback=myMap"></script>
 </script>
@@ -73,12 +69,6 @@ var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
   <a href="{{ url_for('auth.logout') }}">Log Out</a>
   <a href="{{ url_for('maps.aboutus') }}">About Us</a>
 </div>
-<!-- 
-<p>
-  <a href="{{ url_for('auth.logout') }}">Log Out</a>
-  <br>
-  <a href="{{ url_for('myAccount.account') }}">My Account</a>
-</p>
--->
+
 </body>
 </html>

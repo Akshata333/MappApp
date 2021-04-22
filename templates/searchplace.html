@@ -1,46 +1,125 @@
+<!DOCTYPE html>
 <html>
 <head>
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDva4m0Xpx3yLGnBHUzzSm2IgTPKuhmMiM&libraries=places"></script>
-    <script>
-        function initialize() {
-          var input = document.getElementById('searchTextField');
-          var autocomplete = new google.maps.places.Autocomplete(input);
-            google.maps.event.addListener(autocomplete, 'place_changed', function () {
-                var place = autocomplete.getPlace();
-                document.getElementById('city2').value = place.name;
-                document.getElementById('cityLat').value = place.geometry.location.lat();
-                document.getElementById('cityLng').value = place.geometry.location.lng();
-            });
+  <title>Directions</title>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+  <style type="text/css">
+    
+    #map {
+      height: 100%;
+    }
+
+  
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    #floating-panel {
+      position: absolute;
+      top: 10px;
+      left: 25%;
+      z-index: 5;
+      background-color: #fff;
+      padding: 5px;
+      border: 1px solid #999;
+      text-align: center;
+      font-family: "Roboto", "sans-serif";
+      line-height: 30px;
+      padding-left: 10px;
+    }
+  </style>
+
+  <script>
+    function initMap() {
+      const directionsService = new google.maps.DirectionsService();
+      const directionsRenderer = new google.maps.DirectionsRenderer();
+      const map = new google.maps.Map(document.getElementById("map"), {
+        zoom: 7,
+        center: { lat: 41.85, lng: -87.65 },
+      });
+      directionsRenderer.setMap(map);
+
+      const onChangeHandler = function () {
+        calculateAndDisplayRoute(directionsService, directionsRenderer);
+      };
+      document
+        .getElementById("searchTextField")
+        .addEventListener("change", onChangeHandler);
+      document
+        .getElementById("searchTextField1")
+        .addEventListener("change", onChangeHandler);
+    }
+
+    function calculateAndDisplayRoute(directionsService, directionsRenderer) {
+      directionsService.route(
+        {
+          origin: {
+            query: document.getElementById("searchTextField").value,
+          },
+          destination: {
+            query: document.getElementById("searchTextField1").value,
+          },
+          travelMode: google.maps.TravelMode.DRIVING,
+        },
+        (response, status) => {
+          if (status === "OK") {
+            directionsRenderer.setDirections(response);
+          } else {
+            window.alert("Directions request failed due to " + status);
+          }
         }
-        google.maps.event.addDomListener(window, 'load', initialize);
-    </script>
+      );
+    }
+  </script>
 </head>
+
 <body>
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDva4m0Xpx3yLGnBHUzzSm2IgTPKuhmMiM&libraries=places"></script>
+  <script>
+      function initialize() {
+        var input = document.getElementById('searchTextField');
+        var autocomplete = new google.maps.places.Autocomplete(input);
+          google.maps.event.addListener(autocomplete, 'place_changed', function () {
+              var place = autocomplete.getPlace();
+              document.getElementById('city2').value = place.name;
+              document.getElementById('cityLat').value = place.geometry.location.lat();
+              document.getElementById('cityLng').value = place.geometry.location.lng();
+          });
+      }
+      google.maps.event.addDomListener(window, 'load', initialize);
+  </script>
+  
     <input id="searchTextField" type="text" size="50" placeholder="Enter a location" autocomplete="on" runat="server" />  
     <input type="hidden" id="city2" name="city2" />
     <input type="hidden" id="cityLat" name="cityLat" />
     <input type="hidden" id="cityLng" name="cityLng" />
 
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDva4m0Xpx3yLGnBHUzzSm2IgTPKuhmMiM&libraries=places"></script>
-    <script>
-        function initialize() {
-          var input = document.getElementById('searchTextField1');
-          var autocomplete = new google.maps.places.Autocomplete(input);
-            google.maps.event.addListener(autocomplete, 'place_changed', function () {
-                var place = autocomplete.getPlace();
-                document.getElementById('city2').value = place.name;
-                document.getElementById('cityLat').value = place.geometry.location.lat();
-                document.getElementById('cityLng').value = place.geometry.location.lng();
-            });
-        }
-        google.maps.event.addDomListener(window, 'load', initialize);
-    </script>
-</body>
-<body>
+  <script>
+      function initialize() {
+        var input = document.getElementById('searchTextField1');
+        var autocomplete = new google.maps.places.Autocomplete(input);
+          google.maps.event.addListener(autocomplete, 'place_changed', function () {
+              var place = autocomplete.getPlace();
+              document.getElementById('city2').value = place.name;
+              document.getElementById('cityLat').value = place.geometry.location.lat();
+              document.getElementById('cityLng').value = place.geometry.location.lng();
+          });
+      }
+      google.maps.event.addDomListener(window, 'load', initialize);
+  </script>
+
     <input id="searchTextField1" type="text" size="50" placeholder="Enter a location" autocomplete="on" runat="server" />  
     <input type="hidden" id="city2" name="city2" />
     <input type="hidden" id="cityLat" name="cityLat" />
     <input type="hidden" id="cityLng" name="cityLng" />
+
+  <div id="map"></div>
+  <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDva4m0Xpx3yLGnBHUzzSm2IgTPKuhmMiM&callback=initMap&libraries=&v=weekly"
+      async
+    ></script>
 </body>
 </html>
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDva4m0Xpx3yLGnBHUzzSm2IgTPKuhmMiM&libraries=places"></script>
