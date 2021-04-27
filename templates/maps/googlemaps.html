@@ -71,9 +71,10 @@
           center: { lat: 41.85, lng: -87.65 },
         });
         // trying to add a map marker
-        //const myLatLng = {lat: 39.299236, lng: -76.609383};
-        //var marker1 = new google.maps.Marker({position: myLatLng});
-        //marker1.setMap(map);
+        const myLatLng = {lat: 39.299236, lng: -76.609383};
+        var marker1 = new google.maps.Marker({position: myLatLng});
+        marker1.setMap(map);
+        read_speed_cams();
         // end map marker
 
         directionsRenderer.setMap(map);
@@ -126,7 +127,6 @@
     </div>
   </div>
 <!-- <div id="googleMap" class="full-height" style="width:100%"></div> -->
-  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDva4m0Xpx3yLGnBHUzzSm2IgTPKuhmMiM&libraries=places"></script>
   <script>
       function initialize() {
         var input = document.getElementById('searchTextField');
@@ -177,27 +177,28 @@
   <a href="{{ url_for('maps.aboutus') }}">About Us</a>
 </div>
 
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDva4m0Xpx3yLGnBHUzzSm2IgTPKuhmMiM&callback=initMap"
-  type="text/javascript"></script>
-<script src="./papaparse_min.js">
-  // Parse local CSV file
-  //Papa.parse("../../Fixed_Speed_Cameras.csv", {
-  //	complete: function(results) {
-  //		console.log("Finished:", results.data);
-  //	}
-  //});
-//
-  //let geocoder = new google.maps.Geocoder();
-  //geocoder.geocode({address: results.data[11]}, (results1, status) => {
-  //  if (status === "OK") {
-  //    new google.maps.Marker({
-  //      map: map,
-  //      position: results1[0].geometry.location,
-  //    });
-  //  } else {
-  //    alert("Geocode was not successful for the following reason: " + status);
-  //  }
-  //});
+<script type="text/javascript" src="/static/papaparse.min.js"></script>
+<script>
+  // Parse local CSV file.
+  function read_speed_cams(){
+    Papa.parse('../../Fixed_Speed_Cameras.csv', {
+    	complete: function(results) {
+    		console.log("Finished:", results.data);
+    	}
+    });
+
+    let geocoder = new google.maps.Geocoder();
+    geocoder.geocode({address: results.data[11]}, (results1, status) => {
+      if (status === "OK") {
+        new google.maps.Marker({
+          map: map,
+          position: results1[0].geometry.location,
+        });
+      } else {
+        alert("Geocode was not successful for the following reason: " + status);
+      }
+    });
+  }
 </script>
 </body>
 </html>
