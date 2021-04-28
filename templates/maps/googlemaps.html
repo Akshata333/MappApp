@@ -68,13 +68,15 @@
         const directionsRenderer = new google.maps.DirectionsRenderer();
         const map = new google.maps.Map(document.getElementById("map"), {
           zoom: 7,
-          center: { lat: 41.85, lng: -87.65 },
+          center: { lat: 39.299, lng: -76.609 },
         });
         // trying to add a map marker
         const myLatLng = {lat: 39.299236, lng: -76.609383};
         var marker1 = new google.maps.Marker({position: myLatLng});
         marker1.setMap(map);
-        read_speed_cams();
+
+        let cameras = {{cameraDB|tojson}}; // NOT AN ERROR, the compiler just does not realize this is a valid Flask operation.
+        TEST(cameras);
         // end map marker
 
         directionsRenderer.setMap(map);
@@ -178,26 +180,11 @@
 </div>
 
 <script type="text/javascript" src="/static/papaparse.min.js"></script>
+<script type="text/javascript" src="/static/requirejs.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
-  // Parse local CSV file.
-  function read_speed_cams(){
-    Papa.parse('../../Fixed_Speed_Cameras.csv', {
-    	complete: function(results) {
-    		console.log("Finished:", results.data);
-    	}
-    });
-
-    let geocoder = new google.maps.Geocoder();
-    geocoder.geocode({address: results.data[11]}, (results1, status) => {
-      if (status === "OK") {
-        new google.maps.Marker({
-          map: map,
-          position: results1[0].geometry.location,
-        });
-      } else {
-        alert("Geocode was not successful for the following reason: " + status);
-      }
-    });
+  function TEST(cameras){
+    console.log(cameras);
   }
 </script>
 </body>
