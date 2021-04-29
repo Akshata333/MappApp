@@ -76,7 +76,11 @@
         marker1.setMap(map);
 
         let cameras = {{cameraDB|tojson}}; // NOT AN ERROR, the compiler just does not realize this is a valid Flask operation.
-        TEST(cameras);
+        for (let i=0; i<cameras.length; ++i){
+          let obj = cameras[i];
+          TEST(obj);
+        }
+        //TEST(cameras);
         // end map marker
 
         directionsRenderer.setMap(map);
