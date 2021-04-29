@@ -33,3 +33,8 @@ def index():
 @login_required
 def aboutus():
     return render_template('maps/aboutus.html')
+
+@bp.route('/roadopinion', methods=('GET', 'POST'))
+@login_required
+def roadopinion():
+    return render_template('maps/roadopinion.html')
