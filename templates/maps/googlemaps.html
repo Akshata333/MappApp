@@ -70,16 +70,35 @@
           zoom: 7,
           center: { lat: 39.299, lng: -76.609 },
         });
+
+        const geocoder = new google.maps.Geocoder();
+        function geocodeAddress(geocoder, resultsMap, location){
+          const address = location;
+          geocoder.geocode({ address: address }, (results, status) => {
+            if (status === "OK") {
+              resultsMap.setCenter(results[0].geometry.location);
+              new google.maps.Marker({
+                map: resultsMap,
+                position: results[0].geometry.location,
+              });
+            }else{
+              alert("Geocode was not successful for the following reason: " + status);
+            }
+          });
+        }
         // trying to add a map marker
-        const myLatLng = {lat: 39.299236, lng: -76.609383};
-        var marker1 = new google.maps.Marker({position: myLatLng});
-        marker1.setMap(map);
+        //const myLatLng = {lat: 39.299236, lng: -76.609383};
+        //var marker1 = new google.maps.Marker({position: myLatLng});
+        //marker1.setMap(map);
 
         let cameras = {{cameraDB|tojson}}; // NOT AN ERROR, the compiler just does not realize this is a valid Flask operation.
-        for (let i=0; i<cameras.length; ++i){
+        for (let i=0; i<10; ++i){
           let obj = cameras[i];
-          TEST(obj);
+          geocodeAddress(geocoder, map, obj[1]);
+          //TEST(obj[1]);
         }
+        //geocodeAddress(geocoder, map, cameras[3][1]);
+        //geocodeAddress(geocoder, map);
         //TEST(cameras);
         // end map marker
 
