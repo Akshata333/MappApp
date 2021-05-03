@@ -95,6 +95,14 @@
           var marker = new google.maps.Marker({position: latLng, icon: image,});
           marker.setMap(map);
         }
+        // set parking locations on the map
+        let parking = {{parkingDB|tojson}}; // NOT AN ERROR, the compiler just does not realize this is a valid Flask operation.
+        for (let i=0; i<parking.length; ++i){
+          const latLng = {lat: parking[i][1], lng: parking[i][2]};
+          const image = "/static/parking.png";
+          var marker = new google.maps.Marker({position: latLng, icon: image,});
+          marker.setMap(map);
+        }
 
         directionsRenderer.setMap(map);
       

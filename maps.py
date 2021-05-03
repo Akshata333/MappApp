@@ -27,11 +27,20 @@ def index():
         #print(camera_locations)
         json_file.close()
 
-    return render_template('maps/googlemaps.html', cameraDB=(camera_locations))
+    parking_locations = []
+    with open("static/geocodedParking.json") as json_file:
+        json_reader = json.load(json_file)
+        item_count = 0
+        for item in json_reader:
+            parking_locations.append(item)
+            item_count += 1
+        json_file.close()
+
+    return render_template('maps/googlemaps.html', cameraDB=(camera_locations), parkingDB=(parking_locations))
 
 # this only needs to be done once each time the database is updated.
 # this method will overwrite "static/geocodedCameraLocations.json"
-def geocode_addresses():
+def geocode_cameras():
     gmaps = googlemaps.Client(key='AIzaSyDva4m0Xpx3yLGnBHUzzSm2IgTPKuhmMiM')
 
     camera_locations = []
@@ -56,6 +65,30 @@ def geocode_addresses():
     with open("static/geocodedCameraLocations.json", 'w') as geoJson:
         json.dump(camera_locations, geoJson)
     print("DONE UPDATING CAMERA LOCATION DATABASE")
+
+# this only needs to be done once each time the database is updated.
+# this method will overwrite "static/geocodedParking.json"
+def geocode_parking():
+    gmaps = googlemaps.Client(key='AIzaSyDva4m0Xpx3yLGnBHUzzSm2IgTPKuhmMiM')
+
+    parking_locations = []
+    with open("static/Parking_Facilities.csv") as csv_file:
+        csv_reader = csv.reader(csv_file, delimiter=',')
+        line_count = 0
+        for row in csv_reader:
+            if line_count == 0:
+                line_count += 1
+            else:
+                geocode_result = gmaps.geocode(row[8])
+                lat = geocode_result[0]["geometry"]["location"]["lat"]
+                lon = geocode_result[0]["geometry"]["location"]["lng"]
+                parking_locations.append([row[2], lat, lon, row[11]])
+                line_count += 1
+        csv_file.close()
+
+    with open("static/geocodedParking.json", 'w') as geoJson:
+        json.dump(parking_locations, geoJson)
+    print("DONE UPDATING PARKING LOCATION DATABASE")
 
 @bp.route('/aboutus', methods=('GET', 'POST'))
 @login_required
