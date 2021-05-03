@@ -86,21 +86,14 @@
             }
           });
         }
-        // trying to add a map marker
-        //const myLatLng = {lat: 39.299236, lng: -76.609383};
-        //var marker1 = new google.maps.Marker({position: myLatLng});
-        //marker1.setMap(map);
 
+        // set camera locations on the map
         let cameras = {{cameraDB|tojson}}; // NOT AN ERROR, the compiler just does not realize this is a valid Flask operation.
-        for (let i=0; i<10; ++i){
-          let obj = cameras[i];
-          geocodeAddress(geocoder, map, obj[1]);
-          //TEST(obj[1]);
+        for (let i=0; i<cameras.length; ++i){
+          const latLng = {lat: cameras[i][1], lng: cameras[i][2]};
+          var marker = new google.maps.Marker({position: latLng});
+          marker.setMap(map);
         }
-        //geocodeAddress(geocoder, map, cameras[3][1]);
-        //geocodeAddress(geocoder, map);
-        //TEST(cameras);
-        // end map marker
 
         directionsRenderer.setMap(map);
       
@@ -206,10 +199,5 @@
 <script type="text/javascript" src="/static/papaparse.min.js"></script>
 <script type="text/javascript" src="/static/requirejs.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script>
-  function TEST(cameras){
-    console.log(cameras);
-  }
-</script>
 </body>
 </html>
