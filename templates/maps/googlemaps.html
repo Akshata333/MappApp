@@ -91,7 +91,8 @@
         let cameras = {{cameraDB|tojson}}; // NOT AN ERROR, the compiler just does not realize this is a valid Flask operation.
         for (let i=0; i<cameras.length; ++i){
           const latLng = {lat: cameras[i][1], lng: cameras[i][2]};
-          var marker = new google.maps.Marker({position: latLng});
+          const image = "/static/speed_camera.png";
+          var marker = new google.maps.Marker({position: latLng, icon: image,});
           marker.setMap(map);
         }
 
@@ -141,7 +142,7 @@
     <input id="searchTextField1" type="text" size="50" placeholder="Enter a location" autocomplete="on" runat="server" />
     <input type="hidden" id="city2" name="city2" />
     <input type="hidden" id="cityLat" name="cityLat" />
-    <input type="hidden" id="cityLng" name="cityLng" /> 
+    <input type="hidden" id="cityLng" name="cityLng" />
     </div>
   </div>
 <!-- <div id="googleMap" class="full-height" style="width:100%"></div> -->
