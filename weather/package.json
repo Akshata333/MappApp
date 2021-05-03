@@ -1,0 +1,7 @@
+{
+  "name": "leaflet-openweathermapforweather",
+  "description": "A JavaScript library was used  for including OpenWeatherMap.org layers to show weather in  current and surrounding region",
+  "main": "weather.js"
+}
+
+  
