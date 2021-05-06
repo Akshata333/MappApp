@@ -104,3 +104,9 @@ def roadopinion():
 @login_required
 def PRIVACYNOTICE():
     return render_template('maps/PRIVACYNOTICE.html')
+    
+
+@bp.route('/TermCondition', methods=('GET', 'POST'))
+@login_required
+def TermCondition():
+    return render_template('maps/TermCondition.html')
