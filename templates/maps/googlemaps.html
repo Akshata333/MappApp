@@ -87,14 +87,22 @@
           });
         }
 
+        const infoWindow = new google.maps.InfoWindow();
+
         // set camera locations on the map
         let cameras = {{cameraDB|tojson}}; // NOT AN ERROR, the compiler just does not realize this is a valid Flask operation.
         for (let i=0; i<cameras.length; ++i){
           const latLng = {lat: cameras[i][1], lng: cameras[i][2]};
           const image = "/static/speed_camera.png";
-          var marker = new google.maps.Marker({position: latLng, icon: image,});
-          marker.setMap(map);
-        }
+          var marker = new google.maps.Marker({position: latLng, map: map, icon: image, title: cameras[i][3], optimized: false});
+          //marker.setMap(map);
+
+          //marker.addListener("click", () => {
+          //  infoWindow.close();
+          //  infoWindow.setContent(marker.getTitle());
+          //  infoWindow.open(marker.getMap(), marker);
+          //});
+        };
         // set parking locations on the map
         let parking = {{parkingDB|tojson}}; // NOT AN ERROR, the compiler just does not realize this is a valid Flask operation.
         for (let i=0; i<parking.length; ++i){
