@@ -99,3 +99,8 @@ def aboutus():
 @login_required
 def roadopinion():
     return render_template('maps/roadopinion.html')
+
+@bp.route('/PRIVACYNOTICE', methods=('GET', 'POST'))
+@login_required
+def PRIVACYNOTICE():
+    return render_template('maps/PRIVACYNOTICE.html')
