@@ -71,22 +71,6 @@
           center: { lat: 39.299, lng: -76.609 },
         });
 
-        const geocoder = new google.maps.Geocoder();
-        function geocodeAddress(geocoder, resultsMap, location){
-          const address = location;
-          geocoder.geocode({ address: address }, (results, status) => {
-            if (status === "OK") {
-              resultsMap.setCenter(results[0].geometry.location);
-              new google.maps.Marker({
-                map: resultsMap,
-                position: results[0].geometry.location,
-              });
-            }else{
-              alert("Geocode was not successful for the following reason: " + status);
-            }
-          });
-        }
-
         const infoWindow = new google.maps.InfoWindow();
 
         // set camera locations on the map
@@ -95,14 +79,8 @@
           const latLng = {lat: cameras[i][1], lng: cameras[i][2]};
           const image = "/static/speed_camera.png";
           var marker = new google.maps.Marker({position: latLng, map: map, icon: image, title: cameras[i][3], optimized: false});
-          //marker.setMap(map);
-
-          //marker.addListener("click", () => {
-          //  infoWindow.close();
-          //  infoWindow.setContent(marker.getTitle());
-          //  infoWindow.open(marker.getMap(), marker);
-          //});
         };
+        
         // set parking locations on the map
         let parking = {{parkingDB|tojson}}; // NOT AN ERROR, the compiler just does not realize this is a valid Flask operation.
         for (let i=0; i<parking.length; ++i){
